@@ -1,0 +1,9 @@
+-- get user session --
+
+- client side - 
+
+const currentUser = useCurrentUser()
+
+- server side -
+
+ const user = await currentUser();
