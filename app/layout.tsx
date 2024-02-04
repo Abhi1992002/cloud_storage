@@ -4,7 +4,8 @@ import './globals.css'
 import { auth } from '@/auth'
 import { SessionProvider } from 'next-auth/react'
 import { Providers } from '@/components/providers'
-
+import { SpeedInsights } from '@vercel/speed-insights/next';
+ 
 const montserrat = Montserrat({subsets:["latin"]})
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default async function RootLayout({
       <body className={montserrat.className}>
         <Providers>
         {children}
+        <SpeedInsights />
         </Providers>
 
         </body>
