@@ -6,7 +6,9 @@ import { db } from "@/lib/db";
 import { ZodError, z } from "zod";
 
 export const createFolder = async (
-  values: z.infer<typeof folderCreatorSchema>
+  values: z.infer<typeof folderCreatorSchema>,
+  id: string,
+  createdAt: Date
 ) => {
   try {
     const user = await currentUser();
@@ -17,14 +19,16 @@ export const createFolder = async (
 
     await db.folders.create({
       data: {
+        id: id,
         userId: user.id,
         name: values.name,
         color: values.color,
         icon: values.icon,
+        createdAt: createdAt,
       },
     });
 
-    return { success: "Folder Created" };
+    return { success: "Now you can use it..." };
   } catch (error) {
     if (error instanceof ZodError) {
       return { error: "Zod Error" };

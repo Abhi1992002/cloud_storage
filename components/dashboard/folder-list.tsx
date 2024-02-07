@@ -5,13 +5,17 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Folder } from "./folder";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MoonLoader } from "react-spinners";
+import { useRecoilState } from "recoil";
+import { folderListState } from "@/store/atom/folder-list";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type FolderListProps = {};
 
 export const FolderList = ({}: FolderListProps) => {
-  const [folders, setFolders] = useState<Folders[]>(null!);
+  const [folders, setFolders] = useRecoilState(folderListState);
   const [loading, setLoading] = useState(false);
+  const [seeAll, setSeeAll] = useState(false);
   useEffect(() => {
     setLoading(true);
     getFolders()
@@ -29,11 +33,26 @@ export const FolderList = ({}: FolderListProps) => {
       .finally(() => {
         setLoading(false);
       });
-  });
+  }, []);
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Folders</h1>
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-semibold mb-4">Folders</h1>
+        <Button
+          onClick={() => setSeeAll((val) => !val)}
+          variant={"link"}
+          className="text-sm font-medium text-blue-700"
+        >
+          {seeAll ? "Collapse" : "See all"}
+        </Button>
+      </div>
+
+      <div
+        className={cn(
+          "flex gap-4 max-w-full flex-nowrap overflow-x-hidden",
+          seeAll && "flex-wrap"
+        )}
+      >
         {!folders ? (
           <FolderListSkeleton />
         ) : (

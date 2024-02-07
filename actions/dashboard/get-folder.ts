@@ -17,13 +17,12 @@ export const getFolders = async () => {
         userId: user.id,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 
     return { folders: folders };
   } catch (error) {
-    console.log(error);
     return { error: "Something Went wrong" };
   }
 };

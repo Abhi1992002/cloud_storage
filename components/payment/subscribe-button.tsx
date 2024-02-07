@@ -28,7 +28,7 @@ export const SubscribeButton = ({}: SubscribeButtonProps) => {
 
   return (
     <>
-      <Button disabled={loading} variant={"secondary"} onClick={onSubscribe}>
+      <Button disabled={loading} variant={"default"} onClick={onSubscribe}>
         {loading ? <MoonLoader color="#000000" size={13} /> : "Subscribe"}
       </Button>
     </>

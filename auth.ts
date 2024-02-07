@@ -75,6 +75,7 @@ export const {
         session.user.name = token?.name;
         session.user.email = token?.email;
         session.user.isOAuth = token?.isOAuth as boolean;
+        session.user.storageUsed = token?.storageUsed as number;
       }
 
       return session;
@@ -84,7 +85,7 @@ export const {
       if (!token.sub) return token;
 
       const user = await getUserById(token.sub);
-      console.log(user?.role);
+
       if (!user) return token;
 
       const account = await getAccountByUserId(user.id);
@@ -95,8 +96,7 @@ export const {
       token.email = user.email;
       token.role = user?.role;
       token.isTwoFactorEnabled = user.isTwoFactorEnabled;
-
-      console.log("token");
+      token.storageUsed = user.storageUsed!;
 
       return token;
     },

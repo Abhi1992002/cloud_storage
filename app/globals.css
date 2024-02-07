@@ -9,6 +9,8 @@ body ,
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  width: 100vw;
+  overflow-x: hidden;
 } 
  
 @layer base {
@@ -103,6 +105,6 @@ body ,
 
 /* Customizing the scrollbar width */
 .scroller::-webkit-scrollbar {
-  width: 8px;
+  width:6px;
 
 }

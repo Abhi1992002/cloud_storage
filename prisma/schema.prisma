@@ -46,7 +46,9 @@ model User {
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  storageUsed           Float?                 @default(0)
   Folders               Folders[]
+  Files                 Files[]
 }
 
 model VerficationToken {
@@ -103,4 +105,23 @@ model Folders {
 
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Files     Files[]
+}
+
+model Files {
+  id          String   @id @default(cuid())
+  name        String
+  size        Float
+  type        String
+  uploadedAt  DateTime @default(now())
+  downloadUrl String
+  isTrashed   Boolean  @default(false)
+  isStarred   Boolean  @default(false)
+  url         String
+
+  folderId String
+  folders  Folders @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

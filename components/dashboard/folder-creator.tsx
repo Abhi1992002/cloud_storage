@@ -20,7 +20,7 @@ export const FolderCreator = ({}: FolderCreatorProps) => {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="text-white hover:text-white bg-[#000000] space-x-2 shadow-lg shadow-black/40">
+          <Button className="text-white hover:text-white bg-[#000000] space-x-2 shadow-lg shadow-black/40 w-full md:w-fit md:mb-0">
             <FaPlus />
             <p className="font-medium">Create Folder</p>
           </Button>

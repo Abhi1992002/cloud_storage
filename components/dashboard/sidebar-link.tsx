@@ -26,7 +26,7 @@ export const SidebarLink = ({
     <Link
       href={linkHref}
       className={cn(
-        "w-[48%] shadow-lg shadow-black/20 hover:shadow-none rounded-xl border p-4 flex flex-col gap-2 mb-2 relative transition-all duration-300 ease-in-out"
+        "w-[100%] md:w-[48%] shadow-lg shadow-black/20 hover:shadow-none rounded-xl border p-4 flex flex-col gap-2 mb-2 relative transition-all duration-300 ease-in-out items-center md:items-start"
       )}
     >
       {pathname === linkHref && (

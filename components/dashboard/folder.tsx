@@ -6,7 +6,9 @@ import { ChevronRightIcon, TrashIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import { deleteFolder } from "@/actions/dashboard/delete-folder";
 import { toast } from "react-hot-toast";
-import { MoonLoader } from "react-spinners";
+import { useSetRecoilState } from "recoil";
+import { folderListState } from "@/store/atom/folder-list";
+import { DeleteAlertFolder } from "./delete-alert-folder";
 
 type FolderProps = {
   color: string;
@@ -35,30 +37,9 @@ const users = [
 ];
 
 export const Folder = ({ color, name, icon, folderId }: FolderProps) => {
-  const [loading, setLoading] = useState(false);
-
-  const onDeleteFolder = () => {
-    setLoading(true);
-    deleteFolder(folderId)
-      .then((data) => {
-        if (data.error) {
-          toast.error(data.error);
-        }
-        if (data.success) {
-          toast.success(data.success);
-        }
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
   return (
     <div
-      className={`w-[250px] h-[200px] rounded-xl ${color} p-[4px] flex flex-col `}
+      className={`md:w-[32%] min-w-[270px] sm:max-w-[350px] h-[200px] rounded-xl ${color} p-[4px] flex flex-col w-full`}
     >
       {/* heading */}
       <div className="w-full  h-[50px] bg-white rounded-xl flex ">
@@ -72,17 +53,7 @@ export const Folder = ({ color, name, icon, folderId }: FolderProps) => {
             <span className="text-sm font-semibold block">1234</span>
             <span>files</span>
           </p>
-          <Button
-            disabled={loading}
-            onClick={onDeleteFolder}
-            className="bg-red-200"
-          >
-            {loading ? (
-              <MoonLoader size={13} color="#000000" />
-            ) : (
-              <TrashIcon className="text-red-500" />
-            )}
-          </Button>
+          <DeleteAlertFolder folderId={folderId} />
         </div>
       </div>
 

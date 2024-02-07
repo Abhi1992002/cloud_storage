@@ -2,6 +2,7 @@
 
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { backendClient } from "@/lib/edgestore-server";
 
 export const deleteFolder = async (id: string) => {
   try {
@@ -15,6 +16,19 @@ export const deleteFolder = async (id: string) => {
       return { error: "Unauthorised" };
     }
 
+    const files = await db.files.findMany({
+      where: {
+        folderId: id,
+      },
+    });
+
+    const deletePromises = files.map(async (file) => {
+      await backendClient.publicFiles.deleteFile({
+        url: file.url,
+      });
+    });
+    await Promise.all(deletePromises);
+
     await db.folders.delete({
       where: {
         userId: user.id,
@@ -22,8 +36,9 @@ export const deleteFolder = async (id: string) => {
       },
     });
 
-    return { success: "Folder deleted successfully" };
+    return { success: "Folder deleted permanently" };
   } catch (error) {
-    return { error: "something went wrong" };
+    console.log(error);
+    return { error: "Failed to delete" };
   }
 };

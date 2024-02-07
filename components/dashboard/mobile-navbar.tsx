@@ -22,7 +22,6 @@ export const MobileNavbar = ({}: MobileNavbarProps) => {
         </SheetTrigger>
         <SheetContent side={"left"}>
           <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
             <SheetDescription>
               <MobileSidebar />
             </SheetDescription>

@@ -3,12 +3,12 @@
 import { SidebarLink } from "./sidebar-link";
 import { UploadFileButton } from "./upload-file-button";
 import { IoHomeSharp } from "react-icons/io5";
-import { RiFolderSharedFill } from "react-icons/ri";
+
 import { MdTimer } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
 import { StorageLeft } from "./storage-left";
-import { UploadingList } from "./uploading-list";
+import { UploadingListDropdown } from "./uploading-list-dropdown";
 import { FolderCreator } from "./folder-creator";
 
 export function DashboardSidebar() {
@@ -19,13 +19,6 @@ export function DashboardSidebar() {
       linkName: "My drive",
       linkHref: "/main",
       iconColor: "#000000",
-    },
-    {
-      Icon: RiFolderSharedFill,
-      iconBg: "#D7F1DA",
-      linkName: "Shared Files",
-      linkHref: "/shared",
-      iconColor: "#4BCF56",
     },
     {
       Icon: MdTimer,
@@ -74,7 +67,7 @@ export function DashboardSidebar() {
           <StorageLeft />
         </div>
         <div className="w-full pt-4">
-          <UploadingList />
+          <UploadingListDropdown />
         </div>
       </div>
     </div>

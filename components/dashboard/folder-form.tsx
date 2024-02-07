@@ -24,6 +24,10 @@ import { IconPicker } from "./icon-picker";
 import { createFolder } from "@/actions/dashboard/create-folder";
 import { toast } from "react-hot-toast";
 import { MoonLoader } from "react-spinners";
+import { useSetRecoilState } from "recoil";
+import { folderListState } from "@/store/atom/folder-list";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { createId } from "@paralleldrive/cuid2";
 
 type FolderFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,6 +45,9 @@ export const folderCreatorSchema = z.object({
 export const FolderForm = ({ setOpen }: FolderFormProps) => {
   const [icon, setIcon] = useState<string>(null!);
   const [loading, setLoading] = useState(false);
+  const setFolder = useSetRecoilState(folderListState);
+  const user = useCurrentUser();
+
   const form = useForm<z.infer<typeof folderCreatorSchema>>({
     resolver: zodResolver(folderCreatorSchema),
     defaultValues: {
@@ -50,19 +57,43 @@ export const FolderForm = ({ setOpen }: FolderFormProps) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof folderCreatorSchema>) {
+  async function onSubmit(values: z.infer<typeof folderCreatorSchema>) {
     setLoading(true);
-    createFolder(values)
+    const folderId = createId();
+    const createdAt = new Date();
+
+    if (user?.id) {
+      const folderStructure = {
+        id: folderId,
+        name: values.name,
+        color: values.color,
+        icon: values.icon,
+        userId: user?.id,
+        createdAt: createdAt,
+      };
+
+      setFolder((prevFolder) => [folderStructure, ...prevFolder]);
+      setOpen(false);
+    }
+
+    const id = toast.loading("Customizing your folder...");
+    createFolder(values, folderId, createdAt)
       .then((data) => {
         if (data?.error) {
-          toast.error(data.error);
+          toast.error(data.error, {
+            id: id,
+          });
         }
         if (data.success) {
-          toast.success(data.success);
+          toast.success(data.success, {
+            id: id,
+          });
         }
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error(error, {
+          id: id,
+        });
       })
       .finally(() => {
         setOpen(false);
