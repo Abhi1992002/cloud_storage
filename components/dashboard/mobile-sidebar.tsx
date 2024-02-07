@@ -58,6 +58,7 @@ export function MobileSidebar() {
           />
         ))}
       </div>
+      <StorageLeft />
     </div>
   );
 }

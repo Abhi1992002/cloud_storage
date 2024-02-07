@@ -9,11 +9,13 @@ import { toast } from "react-hot-toast";
 import { RefreshCcw } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const StorageLeft = ({}: StorageLeftProps) => {
   const [storageUsed, setStorageUsed] = useState<string>("0");
   const [storageProgress, setStorageProgress] = useState<number>(0);
   const [spin, setSpin] = useState(false);
+  const user = useCurrentUser();
   const getStorage = () => {
     setSpin(true);
     storage()
@@ -25,8 +27,7 @@ export const StorageLeft = ({}: StorageLeftProps) => {
         if (value?.storageUsed) {
           setStorageUsed(value.storageUsed);
 
-          const progress =
-            (Number(value.storageUsed.split(" ")[0]) / 150) * 100;
+          const progress = (user?.storageUsed! / 150) * 100;
           setStorageProgress(progress);
           setSpin(false);
         }
