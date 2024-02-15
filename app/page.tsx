@@ -22,17 +22,17 @@ export default function Home() {
   return (
     <div className="w-screen">
       <GridBackground>
-        <div className="border border-black/60 rounded-full absolute top-10 left-[50%] -translate-x-[50%] text-xs font-semibold  p-2 px-4 ">
+        <div className="w-[90%] border border-black/60 rounded-full absolute top-10 left-[50%] -translate-x-[50%] text-xs font-semibold  p-2 px-4 ">
           🎉 Thank you for Coming!. Want to know more about project.{" "}
           <Link href={"/"} className="underline">
             Visit here
           </Link>
         </div>
-        <h1 className="text-6xl font-bold mt-[200px]">
+        <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold mt-[150px] md:mt-[200px] w-[90%]">
           Cloud Storage for Everyone
         </h1>
 
-        <p className="w-[80%] text-lg ">
+        <p className="w-[90%] sm:w-[80%] text-sm sm:text-base md:text-lg ">
           Discover simplicity, security, and speed with our cloud storage, the
           next-generation cloud storage platform designed to make your life
           easier. Built using cutting-edge technology including Next.js,
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
 
         <div className="w-screen mt-[50px] flex justify-center mb-8 items-center">
-          <div className="w-[80%] aspect-[16/9] border overflow-hidden rounded-xl relative shadow-xl shadow-black/50">
+          <div className="w-[95%] sm:w-[80%] aspect-[16/9] border overflow-hidden rounded-xl relative shadow-xl shadow-black/50">
             <Image fill alt="main image" src={"/home.png"} />
           </div>
         </div>
