@@ -24,7 +24,7 @@ export default function Home() {
       <GridBackground>
         <div className="w-[90%] border border-black/60 rounded-full absolute top-10 left-[50%] -translate-x-[50%] text-xs font-semibold  p-2 px-4 ">
           🎉 Thank you for Coming!. Want to know more about project.{" "}
-          <Link href={"/"} className="underline">
+          <Link href={"https://github.com/Abhi1992002/cloud_storage"} className="underline">
             Visit here
           </Link>
         </div>
